@@ -1,0 +1,20 @@
+.section > * {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.detail-section-card {
+  border-radius: 20px !important;
+  border: none !important;
+  box-shadow: 4px 4px 14px 0 rgba(0, 0, 0, 0.1) !important;
+  padding: 2rem !important;
+  display: flex;
+  align-items: center;
+  height: 220px;
+  justify-content: space-between;
+}
+
+.css-1e1sgny-JoyRadio-radio {
+  color: #B9DF52 !important;
+  border-color: #B9DF52 !important;
+}
