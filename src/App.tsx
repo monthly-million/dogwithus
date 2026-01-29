@@ -37,34 +37,8 @@ function App() {
               <Stack gap={1}>
                 <Typography fontWeight={600} fontSize={'18px'}>성별</Typography>
                 <RadioGroup defaultValue="female" orientation="horizontal" sx={{display: 'flex'}}>
-                  <Radio value="female" label="여자" sx={{
-                    flex: 1,
-                    '--Radio-actionRadius': '8px',
-                    '& .MuiRadio-radio': {
-                      borderColor: '#B9DF52',
-                      '&:hover': {
-                        backgroundColor: 'rgba(185, 223, 82, 0.1)',
-                      },
-                    },
-                    '&.Joy-checked .MuiRadio-radio': {
-                      backgroundColor: '#B9DF52',
-                      borderColor: '#B9DF52',
-                    },
-                  }}/>
-                  <Radio value="male" label="남자" sx={{
-                    flex: 1,
-                    '--Radio-actionRadius': '8px',
-                    '& .MuiRadio-radio': {
-                      borderColor: '#B9DF52',
-                      '&:hover': {
-                        backgroundColor: 'rgba(185, 223, 82, 0.1)',
-                      },
-                    },
-                    '&.Joy-checked .MuiRadio-radio': {
-                      backgroundColor: '#B9DF52',
-                      borderColor: '#B9DF52',
-                    },
-                  }}/>
+                  <Radio value="female" label="여자" sx={{flex: 1}}/>
+                  <Radio value="male" label="남자" sx={{flex: 1}}/>
                 </RadioGroup>
               </Stack>
               <Stack gap={1}>
