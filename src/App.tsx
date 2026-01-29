@@ -100,11 +100,11 @@ function App() {
 
       {/* hero section */}
       <Sheet className='section' sx={{backgroundColor: '#E7F3BE', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-        <Stack sx={{position: 'absolute', top: '10%'}}>
+        <Stack sx={{position: 'absolute', top: '12%'}} gap={1.5}>
           <Typography fontSize={'33px'} fontWeight={700} lineHeight={'42px'} textAlign={'center'} fontFamily={'NEXON Lv1 Gothic'} >
             강아지와 함께<br />산책으로 시작하는 만남
           </Typography>
-          <Typography fontSize={'20px'} fontWeight={500} lineHeight={'14px'} textAlign={'center'}>
+          <Typography fontSize={'20px'} fontWeight={500} lineHeight={'14px'} textAlign={'center'} sx={{color: '#3B3D3B'}}>
             강아지를 사랑하는 사람들끼리, 독위드어스
           </Typography>
         </Stack>
@@ -115,7 +115,7 @@ function App() {
       <Sheet className='section' sx={{backgroundColor: '#F4F4F4', padding: '5rem 1rem'}}>
         <Stack justifyContent={'center'} alignItems={'center'}>
           <Typography fontWeight={700} fontSize={'28px'} fontFamily={'NEXON Lv1 Gothic'}>산책 소개팅이 편한 이유</Typography>
-          <Typography fontWeight={400} fontSize={'18px' }>어색함/거절 부담/코스 고민을 산책이 줄여줘요</Typography>
+          <Typography fontWeight={400} fontSize={'18px'} sx={{color: '#3B3D3B'}}>어색함/거절 부담/코스 고민을 산책이 줄여줘요</Typography>
         </Stack>
         <Stack gap={2} sx={{marginTop: '2rem', maxWidth: '320px'}}>
           <Card className="detail-section-card">
@@ -188,7 +188,7 @@ function App() {
         <Typography fontWeight={700} fontSize={'28px'} fontFamily={'NEXON Lv1 Gothic'} textAlign={'center'}>
           산책으로 시작하는 만남<br />지금 바로 만나보세요
         </Typography>
-        <Typography fontWeight={400} fontSize={'18px'} textAlign={'center'}>
+        <Typography fontWeight={400} fontSize={'18px'} textAlign={'center'} sx={{color: '#3B3D3B'}}>
           강아지를 사랑하는 사람들끼리<br/>가볍게 걷고, 자연스럽게 알아가요
         </Typography>
         <Button onClick={() => setIsOpenDownload(true)} sx={{backgroundColor: '#000', color: '#fff', height: '58px', width: '260px', borderRadius: '100px', fontWeight: '500', fontSize: '20px', fontFamily: 'Pretendard', marginTop: '2rem'}}>
