@@ -25,7 +25,7 @@ function App() {
     <Stack>
       {isOpen && 
         <Modal>
-          <Stack gap={2}>
+          <Stack gap={1.5}>
             <Stack>
               <Typography fontSize={'16px'} fontWeight={400} fontFamily={'Fredoka One'} textAlign={'center'}>dogwithus</Typography>
             </Stack>
@@ -33,24 +33,26 @@ function App() {
               <Typography fontWeight={500} fontSize={'18px'} sx={{color: '#85AF11'}}>잘 맞는 산책 메이트를 추천해드릴게요</Typography>
               <Typography fontWeight={600} fontSize={'24px'} fontStyle={'semi-bold'}>성별과 연령대를 선택해주세요</Typography>
             </Stack>
-            <Stack gap={1}>
-              <Typography fontWeight={600} fontSize={'18px'}>성별</Typography>
-              <RadioGroup defaultValue="female" orientation="horizontal" sx={{display: 'flex'}}>
-                <Radio value="female" label="여자" sx={{flex: 1}}/>
-                <Radio value="male" label="남자" sx={{flex: 1}}/>
-              </RadioGroup>
+            <Stack gap={2}>
+              <Stack gap={1}>
+                <Typography fontWeight={600} fontSize={'18px'}>성별</Typography>
+                <RadioGroup defaultValue="female" orientation="horizontal" sx={{display: 'flex'}}>
+                  <Radio value="female" label="여자" sx={{flex: 1}}/>
+                  <Radio value="male" label="남자" sx={{flex: 1}}/>
+                </RadioGroup>
+              </Stack>
+              <Stack gap={1}>
+                <Typography fontWeight={600} fontSize={'18px'}>태어난 해</Typography>
+                <Select placeholder="태어난 해를 선택해주세요">
+                  {
+                    Array.from({length: 38}, (_, index) => (
+                      <Option value={2007 - index}>{2007 - index}</Option>
+                    ))
+                  }
+                </Select>
+              </Stack>
+              <Button sx={{backgroundColor: '#B9DF52', color: '#fff', height: '50px', fontWeight: '500', fontSize: '18px'}} onClick={getInfo}>선택완료</Button>
             </Stack>
-            <Stack gap={1}>
-              <Typography fontWeight={600} fontSize={'18px'}>태어난 해</Typography>
-              <Select placeholder="태어난 해를 선택해주세요">
-                {
-                  Array.from({length: 38}, (_, index) => (
-                    <Option value={2007 - index}>{2007 - index}</Option>
-                  ))
-                }
-              </Select>
-            </Stack>
-            <Button sx={{backgroundColor: '#B9DF52', color: '#fff', height: '50px', fontWeight: '500', fontSize: '18px'}} onClick={getInfo}>선택완료</Button>
           </Stack>
         </Modal>
       }
