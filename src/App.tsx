@@ -104,7 +104,7 @@ function App() {
           <Typography fontSize={'33px'} fontWeight={700} lineHeight={'42px'} textAlign={'center'} fontFamily={'NEXON Lv1 Gothic'} >
             강아지와 함께<br />산책으로 시작하는 만남
           </Typography>
-          <Typography fontSize={'20px'} fontWeight={500} lineHeight={'14px'} textAlign={'center'} fontFamily={'Pretendard'} fontStyle={'Medium'}>
+          <Typography fontSize={'20px'} fontWeight={500} lineHeight={'14px'} textAlign={'center'}>
             강아지를 사랑하는 사람들끼리, 독위드어스
           </Typography>
         </Stack>
