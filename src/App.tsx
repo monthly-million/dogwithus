@@ -24,7 +24,7 @@ function App() {
   return (
     <Stack>
       {isOpen && 
-        <Modal activeOutSideClick={false}>
+        <Modal>
           <Stack gap={3}>
             <Stack>
               <Typography fontSize={'16px'} fontWeight={400} fontFamily={'Fredoka One'} textAlign={'center'}>dogwithus</Typography>
