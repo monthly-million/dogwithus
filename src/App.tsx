@@ -25,7 +25,7 @@ function App() {
     <Stack>
       {isOpen && 
         <Modal>
-          <Stack gap={3}>
+          <Stack gap={2}>
             <Stack>
               <Typography fontSize={'16px'} fontWeight={400} fontFamily={'Fredoka One'} textAlign={'center'}>dogwithus</Typography>
             </Stack>
@@ -64,7 +64,7 @@ function App() {
             </Stack>
             <Stack alignItems={'center'}>
               <Typography fontWeight={600} fontSize={'24px'}>현재 소수 인원으로</Typography>
-              <Typography fontWeight={600} fontSize={'24px'}>
+              <Typography fontWeight={600} fontSize={'24px'} sx={{position: 'relative', top: '-5px'}}>
                 <span style={{color: '#85AF11'}}>베타</span> 운영 중이예요
               </Typography>
             </Stack>
@@ -79,7 +79,7 @@ function App() {
             </Stack>
             <Stack gap={1} sx={{marginTop: '1rem'}}>
               <Typography fontWeight={600} fontSize={'18px'}>전화번호 <span style={{color: '#A6A6A6', fontWeight: 400}}>(문자발송)</span></Typography>
-              <Input placeholder='`-`없이 숫자만 입력해주세요.' />
+              <Input placeholder='`-`없이 숫자만 입력해주세요.' sx={{height: '50px'}} />
               <Typography fontWeight={400} fontSize={'14px'}>💡 알림은 편하게 받아보실 수 있게 보내드릴게요.<br />‘소개팅’ 같은 부담스러운 표현은 사용하지 않아요.</Typography>
             </Stack>
           </Stack>
@@ -91,7 +91,7 @@ function App() {
       }
 
       {/* header */}
-      <Sheet className='section' sx={{backgroundColor: '#E7F3BE', position: 'sticky', top: 0, zIndex: 100}}>
+      <Sheet className='section' sx={{backgroundColor: '#fff', color: '#171917', position: 'sticky', top: 0, zIndex: 100}}>
         <Stack padding={2} direction={'row'} alignItems={'center'} justifyContent={'space-between'} sx={{boxSizing: 'border-box'}}>
           <Typography fontSize={'22px'} fontWeight={'bold'} fontFamily={'Fredoka One'}>dogwithus</Typography>
           <Button sx={{borderRadius: '16px', background: '#000'}} onClick={() => setIsOpenDownload(true)}>앱 다운로드</Button>
@@ -122,28 +122,28 @@ function App() {
             <img src={detailSectionImg1} />
             <Stack>
               <Typography fontWeight={700} fontSize={'24px'} fontFamily={'NEXON Lv1 Gothic'} textAlign={'center'}>어색해도 괜찮아</Typography>
-              <Typography fontWeight={400} fontSize={'18px'} textAlign={'center'}>산책이 대화의 공백을 메워줘요</Typography>
+              <Typography fontWeight={400} fontSize={'18px'} textAlign={'center'} sx={{color: '#3B3D3B'}}>산책이 대화의 공백을 메워줘요</Typography>
             </Stack>
           </Card>
           <Card className="detail-section-card">
             <img src={detailSectionImg2} />
             <Stack>
               <Typography fontWeight={700} fontSize={'24px'} fontFamily={'NEXON Lv1 Gothic'} textAlign={'center'}>자연스러운 거절</Typography>
-              <Typography fontWeight={400} fontSize={'18px'} textAlign={'center'}>산책하고 자연스럽게 마무리 가능</Typography>
+              <Typography fontWeight={400} fontSize={'18px'} textAlign={'center'} sx={{color: '#3B3D3B'}}>산책하고 자연스럽게 마무리 가능</Typography>
             </Stack>
           </Card>
           <Card className="detail-section-card">
             <img src={detailSectionImg3} style={{width: '90%'}} />
             <Stack>
-              <Typography fontWeight={700} fontSize={'24px'} fontFamily={'NEXON Lv1 Gothic'} textAlign={'center'}>어색해도 괜찮아</Typography>
-              <Typography fontWeight={400} fontSize={'18px'} textAlign={'center'}>산책이 대화의 공백을 메워줘요</Typography>
+              <Typography fontWeight={700} fontSize={'24px'} fontFamily={'NEXON Lv1 Gothic'} textAlign={'center'}>시간 낭비가 적어요</Typography>
+              <Typography fontWeight={400} fontSize={'18px'} textAlign={'center'} sx={{color: '#3B3D3B', whiteSpace: 'nowrap'}}>인연이 아니어도, 산책은 좋은 시간이 돼요</Typography>
             </Stack>
           </Card>
           <Card className="detail-section-card">
             <img src={detailSectionImg4} />
             <Stack>
-              <Typography fontWeight={700} fontSize={'24px'} fontFamily={'NEXON Lv1 Gothic'} textAlign={'center'}>어색해도 괜찮아</Typography>
-              <Typography fontWeight={400} fontSize={'18px'} textAlign={'center'}>산책이 대화의 공백을 메워줘요</Typography>
+              <Typography fontWeight={700} fontSize={'24px'} fontFamily={'NEXON Lv1 Gothic'} textAlign={'center'}>데이트 코스 고민 끝</Typography>
+              <Typography fontWeight={400} fontSize={'18px'} textAlign={'center'} sx={{color: '#3B3D3B'}}>만남 자체가 코스 : 산책로/공원</Typography>
             </Stack>
           </Card>
         </Stack>
