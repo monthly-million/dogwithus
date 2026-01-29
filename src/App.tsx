@@ -135,7 +135,7 @@ function App() {
             </Stack>
           </Card>
           <Card className="detail-section-card">
-            <img src={detailSectionImg3} style={{width: '90%'}} />
+            <img src={detailSectionImg3} style={{width: '90%', height: '90%'}} />
             <Stack>
               <Typography fontWeight={700} fontSize={'24px'} fontFamily={'NEXON Lv1 Gothic'} textAlign={'center'} sx={{color: '#171917'}}>시간 낭비가 적어요</Typography>
               <Typography fontWeight={400} fontSize={'18px'} textAlign={'center'} sx={{color: '#3B3D3B', whiteSpace: 'nowrap'}}>인연이 아니어도, 산책은 좋은 시간이 돼요</Typography>
