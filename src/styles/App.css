@@ -14,7 +14,13 @@
   justify-content: space-between;
 }
 
-.css-1e1sgny-JoyRadio-radio, .MuiRadio-input {
+/* Joy UI Radio 스타일 - 더 안정적인 클래스 사용 */
+[class*="JoyRadio-radio"] {
   color: #B9DF52 !important;
   border-color: #B9DF52 !important;
+}
+
+/* 체크된 상태 */
+[class*="Joy-checked"] [class*="JoyRadio-radio"] {
+  background-color: #B9DF52 !important;
 }
