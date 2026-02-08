@@ -26,9 +26,22 @@ function App() {
   });
 
   useEffect(() => {
+    // localStorage에서 userId 가져오거나 생성
+    const getUserId = () => {
+      let userId = localStorage.getItem('dogwithus_user_id');
+      if (!userId) {
+        // UUID 생성 (간단한 버전)
+        userId = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        localStorage.setItem('dogwithus_user_id', userId);
+      }
+      return userId;
+    };
+
+    const userId = getUserId();
+
     amplitude.add(replayPlugin);
 
-    amplitude.init('01ca9ca27393a8b3f7509d6dced6dd7d',{
+    amplitude.init('01ca9ca27393a8b3f7509d6dced6dd7d', userId, {
       defaultTracking: {
         pageViews: true,
         sessions: true,
