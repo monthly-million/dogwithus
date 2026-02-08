@@ -9,16 +9,54 @@ import detailSectionImg4 from './assets/images/detail_4.png';
 import guideSectionImg1 from './assets/images/mockup_1.png';
 import guideSectionImg2 from './assets/images/mockup_2.png';
 import guideSectionImg3 from './assets/images/mockup_3.png';
+import * as amplitude from '@amplitude/analytics-browser';
+import { sessionReplayPlugin } from '@amplitude/plugin-session-replay-browser';
 
 import { Modal } from './component/Modal'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 function App() {
 
   const [isOpen, setIsOpen] = useState(true);
   const [isOpenDownload, setIsOpenDownload] = useState(false);
+  const [gender, setGender] = useState<string>('female');
+  const [age, setAge] = useState<number | null>(null);
+  const [phoneNumber, setPhoneNumber] = useState<string>('');
+  const replayPlugin = sessionReplayPlugin({
+    sampleRate: 0.1, // 10% 녹화 (운영에서는 보통 낮춤)
+  });
+
+  useEffect(() => {
+    amplitude.add(replayPlugin);
+
+    amplitude.init('01ca9ca27393a8b3f7509d6dced6dd7d',{
+      defaultTracking: {
+        pageViews: true,
+        sessions: true,
+        attribution: true
+      }
+    }
+  )}, []);
 
   const getInfo = () => {
+    amplitude.track('성별연령_선택완료', {
+      gender: gender,
+      age: age
+    });
     setIsOpen(false);
+  }
+
+  const clickDownloadButton = (buttonLocation: string) => {
+    setIsOpenDownload(true);
+    amplitude.track('앱다운로드_클릭', {
+      button: buttonLocation
+    });
+  }
+
+  const clickNotificationSignup = () => {
+    amplitude.track('휴대폰번호_완료', {
+      phone: phoneNumber
+    });
+    setIsOpenDownload(false);
   }
 
   return (
@@ -36,22 +74,26 @@ function App() {
             <Stack gap={2}>
               <Stack gap={1}>
                 <Typography fontWeight={600} fontSize={'18px'}>성별</Typography>
-                <RadioGroup defaultValue="female" orientation="horizontal" sx={{display: 'flex'}}>
+                <RadioGroup value={gender} onChange={(e) => setGender(e.target.value)} orientation="horizontal" sx={{display: 'flex'}}>
                   <Radio value="female" label="여자" sx={{flex: 1}}/>
                   <Radio value="male" label="남자" sx={{flex: 1}}/>
                 </RadioGroup>
               </Stack>
               <Stack gap={1}>
                 <Typography fontWeight={600} fontSize={'18px'}>태어난 해</Typography>
-                <Select placeholder="태어난 해를 선택해주세요">
+                <Select placeholder="태어난 해를 선택해주세요" value={age} onChange={(_, newValue) => setAge(newValue)}>
                   {
                     Array.from({length: 38}, (_, index) => (
-                      <Option value={2007 - index}>{2007 - index}</Option>
+                      <Option key={2007 - index} value={2007 - index}>{2007 - index}</Option>
                     ))
                   }
                 </Select>
               </Stack>
-              <Button sx={{backgroundColor: '#B9DF52', color: '#fff', height: '50px', fontWeight: '500', fontSize: '18px'}} onClick={getInfo}>선택완료</Button>
+              <Button sx={{backgroundColor: '#B9DF52', color: '#fff', height: '50px', fontWeight: '500', fontSize: '18px'}} 
+                      disabled={!gender || !age}
+                      onClick={getInfo}>
+                        선택완료
+              </Button>
             </Stack>
           </Stack>
         </Modal>
@@ -81,12 +123,12 @@ function App() {
             </Stack>
             <Stack gap={1} sx={{marginTop: '1rem'}}>
               <Typography fontWeight={600} fontSize={'18px'}>전화번호 <span style={{color: '#A6A6A6', fontWeight: 400}}>(문자발송)</span></Typography>
-              <Input placeholder='`-`없이 숫자만 입력해주세요.' sx={{height: '50px'}} />
+              <Input placeholder='`-`없이 숫자만 입력해주세요.' sx={{height: '50px'}} value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
               <Typography fontWeight={400} fontSize={'14px'}>💡 알림은 편하게 받아보실 수 있게 보내드릴게요.<br />‘소개팅’ 같은 부담스러운 표현은 사용하지 않아요.</Typography>
             </Stack>
           </Stack>
           <Stack gap={1} sx={{marginTop: '1rem'}}>
-            <Button sx={{backgroundColor: '#B9DF52', color: '#fff', height: '50px', fontWeight: '500', fontSize: '18px'}} onClick={getInfo}>오픈 알림 받기</Button>
+            <Button sx={{backgroundColor: '#B9DF52', color: '#fff', height: '50px', fontWeight: '500', fontSize: '18px'}} onClick={clickNotificationSignup} disabled={!phoneNumber}>오픈 알림 받기</Button>
             <Button sx={{backgroundColor: '#fff', color: '#B9DF52', height: '50px', fontWeight: '500', fontSize: '18px', border: '1px solid #B9DF52'}} onClick={() => setIsOpenDownload(false)}>그냥 둘러볼게요</Button>
           </Stack>
         </Modal>
@@ -96,7 +138,7 @@ function App() {
       <Sheet className='section' sx={{backgroundColor: '#fff', color: '#171917', position: 'sticky', top: 0, zIndex: 100}}>
         <Stack padding={2} direction={'row'} alignItems={'center'} justifyContent={'space-between'} sx={{boxSizing: 'border-box'}}>
           <Typography fontSize={'22px'} fontWeight={'bold'} fontFamily={'Fredoka One'}>dogwithus</Typography>
-          <Button sx={{borderRadius: '16px', background: '#000'}} onClick={() => setIsOpenDownload(true)}>앱 다운로드</Button>
+          <Button sx={{borderRadius: '16px', background: '#000'}} onClick={() => clickDownloadButton('up')}>앱 다운로드</Button>
         </Stack>
       </Sheet>
 
@@ -199,7 +241,7 @@ function App() {
         <Typography fontWeight={400} fontSize={'18px'} textAlign={'center'} sx={{color: '#3B3D3B', position: 'relative', top: '-5px'}}>
           가볍게 걷고, 자연스럽게 알아가요
         </Typography>
-        <Button onClick={() => setIsOpenDownload(true)} sx={{backgroundColor: '#000', color: '#fff', height: '58px', width: '260px', borderRadius: '100px', fontWeight: '500', fontSize: '20px', fontFamily: 'Pretendard', marginTop: '2rem'}}>
+        <Button onClick={() => clickDownloadButton('down')} sx={{backgroundColor: '#000', color: '#fff', height: '58px', width: '260px', borderRadius: '100px', fontWeight: '500', fontSize: '20px', fontFamily: 'Pretendard', marginTop: '2rem'}}>
           앱 다운로드
         </Button>
       </Sheet>
