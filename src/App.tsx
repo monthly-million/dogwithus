@@ -1,6 +1,5 @@
 import './styles/reset.css';
 import './styles/App.css';
-import { useRef } from 'react';
 import { Button, Card, Sheet, Stack, Typography, Box, Chip, RadioGroup, Radio, Select, Option, Input } from '@mui/joy';
 import heroSectionImg from './assets/images/hero_section.png';
 import detailSectionImg1 from './assets/images/detail_1.png';
