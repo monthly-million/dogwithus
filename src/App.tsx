@@ -47,7 +47,7 @@ function App() {
         attribution: true
       }
     });
-  }, [userId]);
+  }, []);
 
   const getInfo = () => {
     if (!gender || !age) return alert('성별과 연령대를 선택해주세요.');
