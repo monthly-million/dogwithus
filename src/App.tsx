@@ -15,8 +15,8 @@ import { sessionReplayPlugin } from '@amplitude/plugin-session-replay-browser';
 import { Modal } from './component/Modal'
 import { useEffect, useState } from 'react';
 function App() {
-  const LOCAL_STORAGE_KEY = 'dogwithus_user_id';
-  const AMPLITUDE_KEY = '01ca9ca27393a8b3f7509d6dced6dd7d';
+  const LOCAL_STORAGE_KEY = 'user_id';
+  const AMPLITUDE_KEY = '399890895f9e7a069fe8a0daceeee26e';
   // open modal
   const [isOpen, setIsOpen] = useState(true);
   const [isOpenDownload, setIsOpenDownload] = useState(false);
