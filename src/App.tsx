@@ -16,6 +16,7 @@ import { Modal } from './component/Modal'
 import { useEffect, useState } from 'react';
 function App() {
   const LOCAL_STORAGE_KEY = 'dogwithus_user_id';
+  const AMPLITUDE_KEY = '01ca9ca27393a8b3f7509d6dced6dd7d';
   // open modal
   const [isOpen, setIsOpen] = useState(true);
   const [isOpenDownload, setIsOpenDownload] = useState(false);
@@ -39,7 +40,7 @@ function App() {
     const amplitudeId = userId || `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
     localStorage.setItem(LOCAL_STORAGE_KEY, amplitudeId);
 
-    amplitude.init('01ca9ca27393a8b3f7509d6dced6dd7d', amplitudeId, {
+    amplitude.init(AMPLITUDE_KEY, amplitudeId, {
       defaultTracking: {
         pageViews: true,
         sessions: true,
