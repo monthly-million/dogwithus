@@ -1,5 +1,6 @@
 import './styles/reset.css';
 import './styles/App.css';
+import { useRef } from 'react';
 import { Button, Card, Sheet, Stack, Typography, Box, Chip, RadioGroup, Radio, Select, Option, Input } from '@mui/joy';
 import heroSectionImg from './assets/images/hero_section.png';
 import detailSectionImg1 from './assets/images/detail_1.png';
@@ -15,42 +16,41 @@ import { sessionReplayPlugin } from '@amplitude/plugin-session-replay-browser';
 import { Modal } from './component/Modal'
 import { useEffect, useState } from 'react';
 function App() {
-
+  const LOCAL_STORAGE_KEY = 'dogwithus_user_id';
+  // open modal
   const [isOpen, setIsOpen] = useState(true);
   const [isOpenDownload, setIsOpenDownload] = useState(false);
+
+  // gender and age
   const [gender, setGender] = useState<string>('female');
   const [age, setAge] = useState<number | null>(null);
+
+  // phone number
   const [phoneNumber, setPhoneNumber] = useState<string>('');
+
+  // session replay plugin
   const replayPlugin = sessionReplayPlugin({
     sampleRate: 0.1, // 10% 녹화 (운영에서는 보통 낮춤)
   });
+  const userId = localStorage.getItem(LOCAL_STORAGE_KEY);
 
   useEffect(() => {
-    // localStorage에서 userId 가져오거나 생성
-    const getUserId = () => {
-      let userId = localStorage.getItem('dogwithus_user_id');
-      if (!userId) {
-        // UUID 생성 (간단한 버전)
-        userId = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-        localStorage.setItem('dogwithus_user_id', userId);
-      }
-      return userId;
-    };
-
-    const userId = getUserId();
-
     amplitude.add(replayPlugin);
 
-    amplitude.init('01ca9ca27393a8b3f7509d6dced6dd7d', userId, {
+    const amplitudeId = userId || `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    localStorage.setItem(LOCAL_STORAGE_KEY, amplitudeId);
+
+    amplitude.init('01ca9ca27393a8b3f7509d6dced6dd7d', amplitudeId, {
       defaultTracking: {
         pageViews: true,
         sessions: true,
         attribution: true
       }
-    }
-  )}, []);
+    });
+  }, [userId]);
 
   const getInfo = () => {
+    if (!gender || !age) return alert('성별과 연령대를 선택해주세요.');
     amplitude.track('성별연령_선택완료', {
       gender: gender,
       age: age
@@ -66,15 +66,23 @@ function App() {
   }
 
   const clickNotificationSignup = () => {
+    if (!phoneNumber) return alert('휴대폰번호를 입력해주세요.');
+    if (phoneNumber.length !== 11) return alert('휴대폰번호를 11자리로 입력해주세요.');
     amplitude.track('휴대폰번호_완료', {
       phone: phoneNumber
     });
+    setIsOpenDownload(false);
+    alert('신청이 완료되었습니다.');
+  }
+
+  const justTakeALook = () => {
+    amplitude.track('휴대폰번호_둘러볼게요');
     setIsOpenDownload(false);
   }
 
   return (
     <Stack>
-      {isOpen && 
+      {isOpen && !userId &&
         <Modal>
           <Stack gap={1.5}>
             <Stack>
@@ -94,7 +102,7 @@ function App() {
               </Stack>
               <Stack gap={1}>
                 <Typography fontWeight={600} fontSize={'18px'}>태어난 해</Typography>
-                <Select placeholder="태어난 해를 선택해주세요" value={age} onChange={(_, newValue) => setAge(newValue)}>
+                <Select placeholder="태어난 해를 선택해주세요" required value={age} onChange={(_, newValue) => setAge(newValue)}>
                   {
                     Array.from({length: 38}, (_, index) => (
                       <Option key={2007 - index} value={2007 - index}>{2007 - index}</Option>
@@ -103,7 +111,6 @@ function App() {
                 </Select>
               </Stack>
               <Button sx={{backgroundColor: '#B9DF52', color: '#fff', height: '50px', fontWeight: '500', fontSize: '18px'}} 
-                      disabled={!gender || !age}
                       onClick={getInfo}>
                         선택완료
               </Button>
@@ -136,13 +143,13 @@ function App() {
             </Stack>
             <Stack gap={1} sx={{marginTop: '1rem'}}>
               <Typography fontWeight={600} fontSize={'18px'}>전화번호 <span style={{color: '#A6A6A6', fontWeight: 400}}>(문자발송)</span></Typography>
-              <Input placeholder='`-`없이 숫자만 입력해주세요.' sx={{height: '50px'}} value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+              <Input placeholder='`-`없이 숫자만 입력해주세요.' sx={{height: '50px'}} value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value.replace(/[^0-9]/g, ''))} />
               <Typography fontWeight={400} fontSize={'14px'}>💡 알림은 편하게 받아보실 수 있게 보내드릴게요.<br />‘소개팅’ 같은 부담스러운 표현은 사용하지 않아요.</Typography>
             </Stack>
           </Stack>
           <Stack gap={1} sx={{marginTop: '1rem'}}>
-            <Button sx={{backgroundColor: '#B9DF52', color: '#fff', height: '50px', fontWeight: '500', fontSize: '18px'}} onClick={clickNotificationSignup} disabled={!phoneNumber}>오픈 알림 받기</Button>
-            <Button sx={{backgroundColor: '#fff', color: '#B9DF52', height: '50px', fontWeight: '500', fontSize: '18px', border: '1px solid #B9DF52'}} onClick={() => setIsOpenDownload(false)}>그냥 둘러볼게요</Button>
+            <Button sx={{backgroundColor: '#B9DF52', color: '#fff', height: '50px', fontWeight: '500', fontSize: '18px'}} onClick={clickNotificationSignup}>오픈 알림 받기</Button>
+            <Button sx={{backgroundColor: '#fff', color: '#B9DF52', height: '50px', fontWeight: '500', fontSize: '18px', border: '1px solid #B9DF52'}} onClick={justTakeALook}>그냥 둘러볼게요</Button>
           </Stack>
         </Modal>
       }
